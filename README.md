@@ -12,7 +12,8 @@ URL Swagger : [a link](http://localhost:3000/api-docs/) </br></hr>
 
 # Postman
 
-</br></hr>
+[a link](https://documenter.getpostman.com/view/10462000/2s9YeK5AZG)</br></hr>
+
 
 # All fonctionalities
 
