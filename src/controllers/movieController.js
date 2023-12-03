@@ -1,5 +1,6 @@
 const movieService = require("../services/movieService");
 
+// Total elements per page
 const pageSize = 2;
 
 const getAllMovies = async (req, res) => {
@@ -109,6 +110,7 @@ const deleteOneMovie = async (req, res) => {
   res.status(204).send({ status: "OK" });
 };
 
+// Pagination
 const getMovies = async (req, res) => {
   console.log("Get movies by queries...");
   const query = req.query;

@@ -23,6 +23,7 @@ const getOneMovie = async (id) => {
   return result;
 };
 
+// Pagination
 const getMovies = async (title, movieDescription, movieCategoryId) => {
   let result;
   let name = title ? { name: title.toLowerCase() } : undefined;
@@ -67,7 +68,7 @@ const updateOneMovie = async (movie, options) => {
   let updatedMovie;
   let category;
   try {
-    if (movie.categoryId){
+    if (movie.categoryId) {
       category = await Category.findByPk(movie.categoryId);
 
       if (!category) {
@@ -75,7 +76,7 @@ const updateOneMovie = async (movie, options) => {
         return;
       }
     }
-    
+
     updatedMovie = await Movie.update(movie, options);
   } catch (error) {
     console.log(error);

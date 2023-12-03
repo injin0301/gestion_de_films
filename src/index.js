@@ -1,5 +1,9 @@
 const express = require("express");
+
+// JS is able to read a format JSON
 const bodyParser = require("body-parser");
+
+// Swagger
 swaggerUi = require("swagger-ui-express");
 const swaggerFile = require("./docs/swagger-output.json");
 
@@ -30,7 +34,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Port
 const PORT = process.env.PORT || 3000;
 
-// Swagger
+// Swagger URL
 app.use(
   "/api-docs",
   swaggerUi.serve,
@@ -38,7 +42,11 @@ app.use(
     swaggerOptions: { persistAuthorization: true },
   })
 );
+
+// Movies URL
 app.use("/api/movies", movieRouter);
+
+// Categories URL
 app.use("/api/categories", categoryRoute);
 
 app.listen(PORT, () => {
