@@ -1,5 +1,4 @@
 const { Op } = require("sequelize");
-const { dropSchema } = require("../database/connexion");
 const Movie = require("../models/movie");
 const Category = require("../models/category");
 
@@ -26,6 +25,7 @@ const getOneMovie = async (id) => {
 // Pagination
 const getMovies = async (title, movieDescription, movieCategoryId) => {
   let result;
+  // Three arguments are optional
   let name = title ? { name: title.toLowerCase() } : undefined;
   let description = movieDescription
     ? { description: movieDescription.toLowerCase() }
@@ -37,7 +37,7 @@ const getMovies = async (title, movieDescription, movieCategoryId) => {
   try {
     result = await Movie.findAll({
       where: {
-        [Op.or]: [name, description, categoryId],
+        [Op.or]: [name, description, categoryId], // Optional
       },
     });
   } catch (error) {
@@ -52,6 +52,7 @@ const createNewMovie = async (newMovie) => {
   try {
     category = await Category.findByPk(newMovie.categoryId);
 
+    // Check first, If categoryId is exist
     if (!category) {
       console.log("Category not exist.");
       return;
@@ -68,9 +69,11 @@ const updateOneMovie = async (movie, options) => {
   let updatedMovie;
   let category;
   try {
+    // Only if user update a category Id
     if (movie.categoryId) {
       category = await Category.findByPk(movie.categoryId);
 
+      // Check first, If categoryId is exist
       if (!category) {
         console.log("Category not exist.");
         return;

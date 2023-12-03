@@ -16,6 +16,7 @@ const getAllMovies = async (req, res) => {
 
     res.status(200).send({
       movies: allMovies.slice(startIndex, endIndex),
+      // Info for users
       pagination: {
         totalMovies: allMovies.length,
         currentPage: pageNumber,
