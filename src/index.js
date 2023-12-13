@@ -7,6 +7,9 @@ const bodyParser = require("body-parser");
 swaggerUi = require("swagger-ui-express");
 const swaggerFile = require("./docs/swagger-output.json");
 
+// Upload
+const fileUpload = require("express-fileupload");
+
 // ORM
 const sequelize = require("./database/connexion");
 
@@ -24,6 +27,9 @@ const movieRouter = require("./routes/movieRoute");
 
 // Category Route
 const categoryRoute = require("./routes/categoryRoute");
+
+// Image Route
+const imageRoute = require("./routes/imageRoute");
 
 const app = express();
 
@@ -43,11 +49,19 @@ app.use(
   })
 );
 
+// file upload middleware
+app.use(fileUpload());
+
+app.use(express.static("public"));
+
 // Movies URL
 app.use("/api/movies", movieRouter);
 
 // Categories URL
 app.use("/api/categories", categoryRoute);
+
+// Image URL
+app.use("/api/image", imageRoute);
 
 app.listen(PORT, () => {
   console.log(`API is listening on port ${PORT}`);

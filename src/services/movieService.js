@@ -46,7 +46,7 @@ const getMovies = async (title, movieDescription, movieCategoryId) => {
   return result;
 };
 
-const createNewMovie = async (newMovie) => {
+const createNewMovie = async (newMovie, imageFile) => {
   let savedMovie;
   let category;
   try {
@@ -59,6 +59,9 @@ const createNewMovie = async (newMovie) => {
     }
 
     savedMovie = await Movie.create(newMovie);
+
+    // Save image
+    imageFile.mv("./upload/" + imageFile.name);
   } catch (error) {
     console.log(error);
   }

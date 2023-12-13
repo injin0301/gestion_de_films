@@ -111,11 +111,11 @@ Movie.sync()
     });
 
     Movie.create({
-      name: "titanic",
-      description: "boat",
-      releasedDate: "2000-12-18",
+      name: "iron man",
+      description: "robot",
+      releasedDate: "2007-12-18",
       rating: 5,
-      categoryId: 1,
+      categoryId: 3,
     });
 
     Movie.create({

@@ -1,4 +1,5 @@
 const movieService = require("../services/movieService");
+var path = require('path');
 
 // Total elements per page
 const pageSize = 2;
@@ -55,30 +56,30 @@ const getOneMovie = async (req, res) => {
 };
 
 const createNewMovie = async (req, res) => {
-  let data = req.body;
-
+  let movieData = JSON.parse(req.body.movie);
+  let imageFile = req.files.image;
   if (
-    !data.name ||
-    !data.description ||
-    !data.releasedDate ||
-    !data.categoryId
+    !movieData.name ||
+    !movieData.description ||
+    !movieData.releasedDate ||
+    !movieData.categoryId
   ) {
     res.status(400).send("Not created.");
   }
 
   const newMovie = {
-    name: data.name.toLowerCase(),
-    description: data.description.toLowerCase(),
-    releasedDate: data.releasedDate,
-    rating: data.rating,
-    categoryId: data.categoryId,
-    image: data.image,
+    name: movieData.name.toLowerCase(),
+    description: movieData.description.toLowerCase(),
+    releasedDate: movieData.releasedDate,
+    rating: movieData.rating,
+    categoryId: movieData.categoryId,
+    image: "localhost:3000/api/image/" + imageFile.name,
   };
 
   let createdMovie;
 
   try {
-    createdMovie = await movieService.createNewMovie(newMovie);
+    createdMovie = await movieService.createNewMovie(newMovie, imageFile);
     if (!createdMovie) {
       res.status(400).send("Not created.");
     }
