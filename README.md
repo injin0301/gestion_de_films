@@ -14,7 +14,6 @@ URL Swagger : [a link](http://localhost:3000/api-docs/) </br></hr>
 
 [a link](https://documenter.getpostman.com/view/10462000/2s9YeK5AZG)</br></hr>
 
-
 # All fonctionalities
 
 - List all movies </br>
@@ -24,6 +23,8 @@ URL Swagger : [a link](http://localhost:3000/api-docs/) </br></hr>
 - Delete a movie </br>
 - List categories by movie </br>
 - Pagination </br>
+- Research a movie by title, description or category </br>
+- Upload an image </br>
 - Swagger </br></hr>
 
 # Group
