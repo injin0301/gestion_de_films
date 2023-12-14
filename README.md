@@ -1,5 +1,6 @@
 # Launch
 
+npm i </br>
 cd src </br>
 npm run start </br></hr>
 
