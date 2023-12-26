@@ -30,4 +30,4 @@ URL Swagger : [a link](http://localhost:3000/api-docs/) </br></hr>
 
 # Group
 
-Injin KIM (M1, Dev Web)
+Injin KIM (M1, Dev Web);
