@@ -56,7 +56,7 @@ const login = async (req, res) => {
     return res.status(404).send("Password is not correct.");
   }
   const token = jwt.sign({ login: user.login }, "secretkey", {
-    expiresIn: "1h",
+    expiresIn: "1m",
   });
   const refreshToken = jwt.sign({ login: user.login }, "secretkey", {
     expiresIn: "2h",
@@ -79,11 +79,21 @@ const validateToken = async (req, res) => {
 
   if (token == undefined) {
     return res.status(400).send("Token is not found.");
+  }  
+
+  try {
+    const decodeToken = await jwt.verify(token, "secretkey");
+
+    const expireTime = new Date(decodeToken.exp * 1000);
+    expireTime.setHours(expireTime.getHours() + 1);
+
+    res.status(200).send({
+      token: token,
+      expiresAt: expireTime
+    });
+  } catch(err) {
+    res.status(400).send("Token has expired");
   }
-
-  const decodeToken = jwt.verify(token, "secretkey");
-
-  console.log(new Date(decodeToken.exp * 1000));
 };
 
 module.exports = {
