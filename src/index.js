@@ -31,6 +31,12 @@ const categoryRoute = require("./routes/categoryRoute");
 // Image Route
 const imageRoute = require("./routes/imageRoute");
 
+// Account Route
+const accountRoute = require("./routes/accountRoute");
+
+// Auth Route
+const authRoute = require("./routes/authRoute");
+
 const app = express();
 
 // User body parser for json object
@@ -62,6 +68,12 @@ app.use("/api/categories", categoryRoute);
 
 // Image URL
 app.use("/api/image", imageRoute);
+
+// Account URL
+app.use("/api/account", accountRoute);
+
+// Auth URL
+app.use("/api/auth", authRoute);
 
 app.listen(PORT, () => {
   console.log(`API is listening on port ${PORT}`);

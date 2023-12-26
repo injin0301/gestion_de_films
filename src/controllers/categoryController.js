@@ -4,9 +4,9 @@ const getAllCategories = async (req, res) => {
   try {
     console.log("Get all categories...");
     const allCategories = await categoryService.getAllCategories();
-    res.status(200).send(allCategories);
+    return res.status(200).send(allCategories);
   } catch (err) {
-    res
+    return res
       .status(404)
       .json({ success: false, error: { code: 404, message: err } });
   }

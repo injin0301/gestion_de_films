@@ -15,7 +15,7 @@ const getAllMovies = async (req, res) => {
 
     const allMovies = await movieService.getAllMovies();
 
-    res.status(200).send({
+    return res.status(200).send({
       movies: allMovies.slice(startIndex, endIndex),
       // Info for users
       pagination: {
@@ -25,7 +25,7 @@ const getAllMovies = async (req, res) => {
       },
     });
   } catch (err) {
-    res
+    return res
       .status(404)
       .json({ success: false, error: { code: 404, message: err } });
   }
@@ -37,19 +37,19 @@ const getOneMovie = async (req, res) => {
     params: { id },
   } = req;
   if (!id) {
-    res.status(400).send("ID not found.");
+    return res.status(400).send("ID not found.");
   }
 
   try {
     const movie = await movieService.getOneMovie(id);
 
     if (!movie) {
-      res.status(404).json({
+      return res.status(404).json({
         success: false,
         error: { code: 404, message: "No matching movies found." },
       });
     }
-    res.status(200).send(movie);
+    return res.status(200).send(movie);
   } catch (err) {
     console.error("Failed to retrieve data : ", err);
   }
@@ -64,7 +64,7 @@ const createNewMovie = async (req, res) => {
     !movieData.releasedDate ||
     !movieData.categoryId
   ) {
-    res.status(400).send("Not created.");
+    return res.status(400).send("Not created.");
   }
 
   const newMovie = {
@@ -81,9 +81,9 @@ const createNewMovie = async (req, res) => {
   try {
     createdMovie = await movieService.createNewMovie(newMovie, imageFile);
     if (!createdMovie) {
-      res.status(400).send("Not created.");
+      return res.status(400).send("Not created.");
     }
-    res.status(201).send({ status: "OK", data: createdMovie });
+    return res.status(201).send({ status: "OK", data: createdMovie });
   } catch (err) {
     console.error("Failed to retrieve data : ", err);
   }
@@ -98,9 +98,9 @@ const updateOneMovie = async (req, res) => {
 
   const updatedMovie = await movieService.updateOneMovie(movie, options);
   if (!updatedMovie) {
-    res.status(400).send("Not updated.");
+    return res.status(400).send("Not updated.");
   }
-  res.status(204).send();
+  return res.status(204).send();
 };
 
 const deleteOneMovie = async (req, res) => {
@@ -109,7 +109,7 @@ const deleteOneMovie = async (req, res) => {
   };
 
   await movieService.deleteOneMovie(options);
-  res.status(204).send({ status: "OK" });
+  return res.status(204).send({ status: "OK" });
 };
 
 // Pagination
@@ -118,7 +118,7 @@ const getMovies = async (req, res) => {
   const query = req.query;
 
   if (Object.keys(req.query).length === 0) {
-    res.status(400).send("No movie(s) found.");
+    return res.status(400).send("No movie(s) found.");
   }
 
   try {
@@ -134,13 +134,13 @@ const getMovies = async (req, res) => {
     );
 
     if (!movies) {
-      res.status(404).json({
+      return res.status(404).json({
         success: false,
         error: { code: 404, message: "No matching movies found." },
       });
     }
 
-    res.status(200).send({
+    return res.status(200).send({
       movies: movies.slice(startIndex, endIndex),
       pagination: {
         totalMovies: movies.length,
