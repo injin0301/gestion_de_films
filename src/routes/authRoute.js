@@ -9,4 +9,6 @@ router.post("/login", authController.login);
 
 router.get("/validate/:accessToken", authController.validateToken);
 
+router.post("/refresh-token/:refreshToken", authController.refreshToken);
+
 module.exports = router;

@@ -54,12 +54,15 @@ const updatedAccount = async (account, options) => {
   return updatedAccount;
 };
 
-const isAdmin = async (uid) => {
+const isAdmin = async (uid, login) => {
   try {
     let user = await User.findOne({
       where: {
-        uid: uid,
-      },
+        [Op.or]: [
+          { login: login == undefined ? null : login },
+          { uid: uid == undefined ? null : uid },
+        ],
+      }
     });
     if (user.roles == "ROLE_ADMIN") {
       return true;

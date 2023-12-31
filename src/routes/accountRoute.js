@@ -2,13 +2,18 @@ const express = require("express");
 const router = express.Router();
 
 const accountController = require("../controllers/accountController");
+const {
+  authenticate,
+  beSureUserIsAdmin,
+} = require("../middlewares/middleware");
 
-router.get("/:uid", accountController.getAccountByUid);
+router.get("/:uid", authenticate, accountController.getAccountByUid);
 
-router.put("/:uid", accountController.UpdateAccountByUid);
+router.put(
+  "/:uid",
+  authenticate,
+  beSureUserIsAdmin,
+  accountController.UpdateAccountByUid
+);
 
 module.exports = router;
-
-//Permet de créer un jeton utilisable par d’autres services par la suite
-//Permet de renouveler régulièrement ce jeton sans avoir à refaire toute la procédure
-//protégée du brut force

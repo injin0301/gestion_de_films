@@ -39,7 +39,7 @@ User.sync()
       uid: "b50ab759-fc35-44a3-9323-7021d246fea4",
       login: "ikim",
       password: hashPassword,
-      roles: "admin",
+      roles: "ROLE_ADMIN",
       status: "open",
     });
   })
