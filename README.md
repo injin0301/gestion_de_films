@@ -27,6 +27,13 @@ URL Swagger : [a link](http://localhost:3000/api-docs/) </br></hr>
 - Research a movie by title, description or category </br>
 - Upload an image </br>
 - Swagger </br></hr>
+- Create an access token and a refresh token </br>
+- Validate a token </br>
+- Register and Login </br>
+- Update an account </br>
+- Get an account </br>
+- Strengthen security system of Movie API </br>
+- Password anti brut force </br></hr>
 
 # Group
 
