@@ -9,18 +9,25 @@ const register = async (req, res) => {
     return res.status(400).send("Not created.");
   }
 
+  // For security password
   const hasUpperCase = /[A-Z]/.test(accountData.password);
-  const hasSpecialCharacter = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(accountData.password);
-  
+  const hasSpecialCharacter = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(
+    accountData.password
+  );
+
   if (accountData.password.length > 15) {
     return res.status(400).send("Password should be maximum 14 characters.");
   } else if (accountData.password.length < 8) {
     return res.status(400).send("Password should be minimum 8 characters.");
-  } else if(!hasUpperCase){
-    return res.status(400).send("Password should contains at least one uppercase letter.");
+  } else if (!hasUpperCase) {
+    return res
+      .status(400)
+      .send("Password should contains at least one uppercase letter.");
   } else if (!hasSpecialCharacter) {
-    return res.status(400).send("Password should contains at least one special character.");
-  } 
+    return res
+      .status(400)
+      .send("Password should contains at least one special character.");
+  }
 
   let password = await bcrypt.hashSync(accountData.password, 8);
   const newAccount = {
@@ -28,7 +35,7 @@ const register = async (req, res) => {
     password: password,
     roles: "ROLE_USER",
     status: "open",
-  };  
+  };
 
   if (await accountService.isAccountExist(newAccount.login)) {
     return res.status(403).send("This account is already exist.");
@@ -87,6 +94,7 @@ const validateToken = async (req, res) => {
   try {
     const decodeToken = await jwt.verify(token, "secretkey");
 
+    // Consider it as valide
     const expireTime = new Date(decodeToken.exp * 1000);
     expireTime.setHours(expireTime.getHours() + 1);
 
@@ -106,13 +114,13 @@ const refreshToken = async (req, res) => {
     return res.status(404).send("Refresh Token is not found.");
   }
 
-  console.log(refreshToken);
   try {
     const decodeToken = await jwt.verify(refreshToken, "secretkey");
 
     const newAccessToken = jwt.sign({ login: decodeToken.login }, "secretkey", {
       expiresIn: "1h",
     });
+    
     const newRefreshToken = jwt.sign(
       { login: decodeToken.login },
       "secretkey",
